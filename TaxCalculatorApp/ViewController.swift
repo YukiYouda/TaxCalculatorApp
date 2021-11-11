@@ -8,7 +8,7 @@
 import UIKit
 
 class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource {
-   
+    
     @IBOutlet weak var textLabel: UILabel!
     @IBOutlet weak var textField: UITextField!
     @IBOutlet weak var taxSelect: UISegmentedControl!
@@ -25,6 +25,8 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
         tableView.dataSource = self
         results.removeAll()
         textField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
+        let userDefaults = UserDefaults.standard
+        userDefaults.removeObject(forKey: "add")
         
     }
     
@@ -43,7 +45,7 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
     }
     
     @IBAction func taxChange(_ sender: Any) {
-       
+        
         if textField.text != "" &&  Int(textField.text!) != nil {
             if taxSelect.selectedSegmentIndex == 0 {
                 calc(tax:1.1)
@@ -55,7 +57,6 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
             textLabel.text = ""
         }
     }
-        
     
     @IBAction func addButton(_ sender: Any) {
         if addTaxCost != 0 {
@@ -81,8 +82,8 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
     
     
     func numberOfSections(in tableView: UITableView) -> Int {
-            return 1
-        }
+        return 1
+    }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return results.count

@@ -17,11 +17,14 @@ class TotalViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
-        resultArray = UserDefaults.standard.object(forKey: "add") as! [Double]
-        sum = resultArray.reduce(0) { (num1:Double, num2:Double) -> Double in
-            return num1 + num2
+        if UserDefaults.standard.object(forKey: "add") != nil {
+            resultArray = UserDefaults.standard.object(forKey: "add") as! [Double]
+            sum = resultArray.reduce(0) { (num1:Double, num2:Double) -> Double in
+                return num1 + num2
+            }
+            totalLabel.text = String(format: "%.0f", sum)
+        } else {
+            totalLabel.text = "エラー"
         }
-        totalLabel.text = String(format: "%.0f", sum)
     }
 }
